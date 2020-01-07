@@ -41,6 +41,20 @@ class human:
             return 0
         else :
             return 1
+    def calculateWinReturn(self):
+        """return the win bet based on flower and card count"""
+        cardCount = 0
+        if (list(self.card) == 1):
+            #same flower
+            for k,v in self.card.items():
+                cardCount += 1
+            if (cardCount == 2):
+                return 2
+            elif (cardCount == 3):
+                return 3
+        else:
+            return 1
+                
 
 class player(human):
     card = {}
@@ -110,10 +124,12 @@ print("%s final score = %d" % (p.name,p.score))
 print("%s final score = %d" % (z.name,z.score))
 
 if (p.score > z.score):
-    print("player win")
+    print("%s win" % p.name)
+    print("%s return = x%d" % (p.name, p.calculateWinReturn()))
 elif (p.score == z.score):
     print("tie")
 else:
-    print("zhong win")
+    print("%s win" % z.name)
+    print("%s return = x%d" % (z.name, z.calculateWinReturn()))
 
 print(x.cards)
