@@ -116,10 +116,11 @@ class zhong(human):
 def distributeCard(deck):
     num_cards = 0
 
+
     for k,v in deck.items():
         for n in v:
             num_cards += 1
-
+    print("deck size = %d" % num_cards)
     rand_card = random.randint(1,num_cards)
 
     #print("rand card = %d" % rand_card)
@@ -139,20 +140,32 @@ def iteration():
     #distribute cards
     x = cardDeck("deck")
     p.card = {}
+    p2.card = {}
+    p3.card = {}
     z.card = {}
     for i in range(2):
-        #flower = (random.choice(list(x.cards)))
-        #number = random.choice(x.cards[flower])
         flower, number = distributeCard(x.cards)
-        #print("flower = %s , number = %d" % (flower, number))
+
         if flower in p.card:
             p.card[flower].append(number)
         else:
             p.card[flower] = [number]
         x.cards[flower].remove(number)
 
-        #flower = (random.choice(list(x.cards)))
-        #number = random.choice(x.cards[flower])
+        flower, number = distributeCard(x.cards)
+        if flower in p2.card:
+            p2.card[flower].append(number)
+        else:
+            p2.card[flower] = [number]
+        x.cards[flower].remove(number)
+
+        flower, number = distributeCard(x.cards)
+        if flower in p3.card:
+            p3.card[flower].append(number)
+        else:
+            p3.card[flower] = [number]
+        x.cards[flower].remove(number)
+        
         flower, number = distributeCard(x.cards)
         if flower in z.card:
             z.card[flower].append(number)
@@ -162,6 +175,8 @@ def iteration():
 
 
     print("%s card = %s" % (p.name, p.card))
+    print("%s card = %s" % (p2.name, p2.card))
+    print("%s card = %s" % (p3.name, p3.card))
     print("%s card = %s" % (z.name, z.card))
 
     def porPai(h):
@@ -186,13 +201,17 @@ def iteration():
         h.score = h.calculateScore()
 
     porPai(p)
+    porPai(p2)
+    porPai(p3)
     porPai(z)
 
-    #print("%s final score = %d" % (p.name,p.score))
-    #print("%s final score = %d" % (z.name,z.score))
+    print("%s final score = %d" % (p.name,p.score))
+    print("%s final score = %d" % (p2.name, p2.score))
+    print("%s final score = %d" % (p3.name, p3.score))
+    print("%s final score = %d" % (z.name,z.score))
 
     if (p.score > z.score):
-        #print("%s win" % p.name)
+        print("%s win" % p.name)
         print("%s return = x%d" % (p.name, p.calculateWinReturn()))
         p.win_ratio.append(p.calculateWinReturn())
         p.win_stat.append(1)
@@ -200,13 +219,13 @@ def iteration():
         #print("%s win stat = %s" % (p.name, p.win_stat))
         #print("%s win stat = %s" % (z.name, z.win_stat))
     elif (p.score == z.score):
-        #print("tie")
+        print("tie")
         p.win_stat.append(0)
         z.win_stat.append(0)
         #print("%s win stat = %s" % (z.name, z.win_stat))
         #print("%s win stat = %s" % (p.name, p.win_stat))
     else:
-        #print("%s win" % z.name)
+        print("%s win" % z.name)
         print("%s return = x%d" % (z.name, z.calculateWinReturn()))
         p.win_stat.append(-1)
         z.win_stat.append(1)
@@ -214,18 +233,68 @@ def iteration():
         #print("%s win stat = %s" % (p.name, p.win_stat))
         #print("%s win stat = %s" % (z.name, z.win_stat))
 
+    if (p2.score > z.score):
+        print("%s win" % p2.name)
+        print("%s return = x%d" % (p2.name, p2.calculateWinReturn()))
+        p2.win_ratio.append(p2.calculateWinReturn())
+        p2.win_stat.append(1)
+        z.win_stat.append(-1)
+        # print("%s win stat = %s" % (p2.name, p2.win_stat))
+        # print("%s win stat = %s" % (z.name, z.win_stat))
+    elif (p2.score == z.score):
+        print("tie")
+        p2.win_stat.append(0)
+        z.win_stat.append(0)
+        # print("%s win stat = %s" % (z.name, z.win_stat))
+        # print("%s win stat = %s" % (p2.name, p2.win_stat))
+    else:
+        print("%s win" % z.name)
+        print("%s return = x%d" % (z.name, z.calculateWinReturn()))
+        p2.win_stat.append(-1)
+        z.win_stat.append(1)
+        z.win_ratio.append(p2.calculateWinReturn())
+        # print("%s win stat = %s" % (p2.name, p2.win_stat))
+        # print("%s win stat = %s" % (z.name, z.win_stat))
+
+    if (p3.score > z.score):
+        print("%s win" % p3.name)
+        print("%s return = x%d" % (p3.name, p3.calculateWinReturn()))
+        p3.win_ratio.append(p3.calculateWinReturn())
+        p3.win_stat.append(1)
+        z.win_stat.append(-1)
+        # print("%s win stat = %s" % (p3.name, p3.win_stat))
+        # print("%s win stat = %s" % (z.name, z.win_stat))
+    elif (p3.score == z.score):
+        print("tie")
+        p3.win_stat.append(0)
+        z.win_stat.append(0)
+        # print("%s win stat = %s" % (z.name, z.win_stat))
+        # print("%s win stat = %s" % (p3.name, p3.win_stat))
+    else:
+        print("%s win" % z.name)
+        print("%s return = x%d" % (z.name, z.calculateWinReturn()))
+        p3.win_stat.append(-1)
+        z.win_stat.append(1)
+        z.win_ratio.append(p3.calculateWinReturn())
+        # print("%s win stat = %s" % (p3.name, p3.win_stat))
+        # print("%s win stat = %s" % (z.name, z.win_stat))
+
     #print(x.cards)
 
 
 z = zhong("zhong")
 p = player("p1")
+p2 = player("p2")
+p3 = player("p3")
 
-total_round = 100000
+total_round = 10000
 #print(x.cards)
 for i in range(total_round):
     iteration()
 
 print("%s win rate = %f" % (p.name, p.calcWinRate()))
+print("%s win rate = %f" % (p2.name, p2.calcWinRate()))
+print("%s win rate = %f" % (p3.name, p3.calcWinRate()))
 print("%s win rate = %f" % (z.name, z.calcWinRate()))
 print("total round = %d" % total_round)
 #print("%s win ratio = %f" % (p.name, p.calcWinRatio()))
