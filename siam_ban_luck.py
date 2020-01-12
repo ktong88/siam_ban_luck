@@ -219,7 +219,7 @@ def iteration():
         #print("%s win stat = %s" % (p.name, p.win_stat))
         #print("%s win stat = %s" % (z.name, z.win_stat))
     elif (p.score == z.score):
-        print("tie")
+        print("%s tie" % p.name)
         p.win_stat.append(0)
         z.win_stat.append(0)
         #print("%s win stat = %s" % (z.name, z.win_stat))
@@ -242,7 +242,7 @@ def iteration():
         # print("%s win stat = %s" % (p2.name, p2.win_stat))
         # print("%s win stat = %s" % (z.name, z.win_stat))
     elif (p2.score == z.score):
-        print("tie")
+        print("%s tie" % p2.name)
         p2.win_stat.append(0)
         z.win_stat.append(0)
         # print("%s win stat = %s" % (z.name, z.win_stat))
@@ -265,7 +265,7 @@ def iteration():
         # print("%s win stat = %s" % (p3.name, p3.win_stat))
         # print("%s win stat = %s" % (z.name, z.win_stat))
     elif (p3.score == z.score):
-        print("tie")
+        print("%s tie" % p3.name)
         p3.win_stat.append(0)
         z.win_stat.append(0)
         # print("%s win stat = %s" % (z.name, z.win_stat))
