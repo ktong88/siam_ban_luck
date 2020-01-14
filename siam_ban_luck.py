@@ -131,7 +131,7 @@ def distributeCard(deck):
     for k,v in deck.items():
         for n in v:
             num_cards += 1
-    #print("deck size = %d" % num_cards)
+    print("deck size = %d" % num_cards)
     rand_card = random.randint(1,num_cards)
 
     #print("rand card = %d" % rand_card)
@@ -202,35 +202,50 @@ def iteration():
     print("%s final score = %d" % (z.name,z.score))
 
     for p in player_list:
-        if (p.score > z.score):
+        zhong_card_count = 0
+        player_card_count = 0
+        for k,v in z.card.items():
+            for n in v:
+                zhong_card_count += 1
+        for k,v in p.card.items():
+            for n in v:
+                player_card_count += 1
+                
+        if (z.score >= 8 and zhong_card_count == 2 and player_card_count == 3):
+            print("%s win" % z.name)
+            print("%s return = x%d" % (z.name, z.calculateWinReturn()))
+            p._player__win_stat.append(-1)
+            z._zhong__win_stat.append(1)
+            z._zhong__win_ratio.append(p.calculateWinReturn())
+        elif (p.score >= 8 and zhong_card_count == 3 and player_card_count == 2):
             print("%s win" % p.name)
             print("%s return = x%d" % (p.name, p.calculateWinReturn()))
             p._player__win_ratio.append(p.calculateWinReturn())
             p._player__win_stat.append(1)
             z._zhong__win_stat.append(-1)
-            #print("%s win stat = %s" % (p.name, p.win_stat))
-            #print("%s win stat = %s" % (z.name, z.win_stat))
+        elif (p.score > z.score):
+            print("%s win" % p.name)
+            print("%s return = x%d" % (p.name, p.calculateWinReturn()))
+            p._player__win_ratio.append(p.calculateWinReturn())
+            p._player__win_stat.append(1)
+            z._zhong__win_stat.append(-1)
         elif (p.score == z.score):
             print("%s tie" % p.name)
             p._player__win_stat.append(0)
             z._zhong__win_stat.append(0)
-            #print("%s win stat = %s" % (z.name, z.win_stat))
-            #print("%s win stat = %s" % (p.name, p.win_stat))
         else:
             print("%s win" % z.name)
             print("%s return = x%d" % (z.name, z.calculateWinReturn()))
             p._player__win_stat.append(-1)
             z._zhong__win_stat.append(1)
             z._zhong__win_ratio.append(p.calculateWinReturn())
-            #print("%s win stat = %s" % (p.name, p.win_stat))
-            #print("%s win stat = %s" % (z.name, z.win_stat))
 
     
 
 
 z = zhong("zhong")
 player_list = []
-for i in range(3):
+for i in range(5):
     name = "p" + str(i)
     player_list.append(player(name))
 
