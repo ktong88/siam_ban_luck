@@ -1,5 +1,6 @@
 import random
 import pysnooper
+import statistics 
 
 class cardDeck:
     
@@ -81,9 +82,9 @@ class human:
                 lost_count += 1
         
         #print("%s win stat = %s" % (self.name, win_stat))
-        print("%s win count = %d" % (self.name, win_count))
-        print("%s tie count = %d" % (self.name, tie_count))
-        print("%s lost count = %d" % (self.name, lost_count))
+        #print("%s win count = %d" % (self.name, win_count))
+        #print("%s tie count = %d" % (self.name, tie_count))
+        #print("%s lost count = %d" % (self.name, lost_count))
         
         return win_count/(win_count+lost_count)
     
@@ -240,29 +241,49 @@ def iteration():
             z._zhong__win_stat.append(1)
             z._zhong__win_ratio.append(p.calculateWinReturn())
 
+player_win_rate = []
+zhong_win_rate = []  
+
+for i in range(100):
+    print("index = %d" % i)
+    z = zhong("zhong")
+    player_list = []
+    for i in range(5):
+        name = "p" + str(i)
+        player_list.append(player(name))
+        
     
 
 
-z = zhong("zhong")
-player_list = []
-for i in range(5):
-    name = "p" + str(i)
-    player_list.append(player(name))
-
-
-
-total_round = 10000
-for i in range(total_round):
-    iteration()
-
-for p in player_list:
     print("========================================")
-    print("%s win rate = %f" % (p.name, p.calcWinRate(p._player__win_stat)))
-    print("%s win ratio = %f" % (p.name, p.calcWinRatio(p._player__win_ratio)))
-print("========================================")
-print("%s win rate = %f" % (z.name, z.calcWinRate(z._zhong__win_stat)))
-print("%s win ratio = %f" % (z.name, z.calcWinRatio(z._zhong__win_ratio)))
-print("========================================")
-print("total round = %d" % total_round)
+    total_round = 10000
+    for i in range(total_round):
+        iteration()
 
+    for p in player_list:
+        win_rate = p.calcWinRate(p._player__win_stat)
+        win_ratio = p.calcWinRatio(p._player__win_ratio)
+        print("========================================")
+        print("%s win rate = %f" % (p.name, win_rate))
+        print("%s win ratio = %f" % (p.name, win_ratio))
+        player_win_rate.append(win_rate)
+    print("========================================")
+    win_rate = z.calcWinRate(z._zhong__win_stat)
+    win_ratio = z.calcWinRatio(z._zhong__win_ratio)
+    print("%s win rate = %f" % (z.name, win_rate))
+    print("%s win ratio = %f" % (z.name, win_ratio))
+    zhong_win_rate.append(win_rate)
+    print("========================================")
+    print("total round = %d" % total_round)
+    print("========================================")
 
+#print("player win rate %s" % player_win_rate)    
+#print("zhong win rate %s" % zhong_win_rate)    
+
+print("player average win rate = %f" % statistics.mean(player_win_rate))
+print("player median win rate = %f" % statistics.median(player_win_rate))
+print("player standrd deviation win rate = %f" % statistics.stdev(player_win_rate))
+
+print("zhong average win rate = %f" % statistics.mean(zhong_win_rate))
+print("zhong median win rate = %f" % statistics.median(zhong_win_rate))
+print("zhong standrd deviation win rate = %f" % statistics.stdev(zhong_win_rate))
